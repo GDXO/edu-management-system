@@ -10,9 +10,15 @@ interface LoginUser {
   password: string
 }
 
-// 登录接口
+// 登录请求
 export const login = (data: LoginUser) => request({
   method: 'POST',
   url: '/front/user/login',
   data: qs.stringify(data)
+})
+
+// 获取登录用户请求
+export const getUserInfo = () => request({
+  method: 'GET',
+  url: '/front/user/getInfo'
 })

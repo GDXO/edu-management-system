@@ -36,10 +36,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
 import type { Form } from 'element-ui'
+import Vue from 'vue'
+import { mapActions } from 'vuex'
 
-import { login } from '@/services/users'
+import { login } from '@/API/users'
 
 export default Vue.extend({
   name: 'LoginIndex',
@@ -67,6 +68,7 @@ export default Vue.extend({
     }
   },
   methods: {
+    ...mapActions(['triggerSetUser']),
     async formSubmitFn () {
       try {
         // 表单验证
@@ -84,12 +86,15 @@ export default Vue.extend({
         } else {
           // 登录成功 => 记录登录状态(Vuex) => 跳转到首页
           this.$message.success('登录成功!')
-          this.$router.push({
-            name: 'home'
-          })
+
+          // 记录登录状态
+          this.triggerSetUser(data.content)
+
+          this.$router.push((this.$route.query.redirect) as string || '/')
         }
       } catch (err) {
-        this.$message.error(err.message)
+        this.$message.error('登录失败!')
+        console.log(err)
       }
 
       // 结束提交按钮 loading
