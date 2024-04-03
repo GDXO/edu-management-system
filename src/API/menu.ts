@@ -1,3 +1,6 @@
+/**
+ * 菜单相关的请求模块
+ */
 import request from '@/utils/request'
 
 // 创建或更新菜单
