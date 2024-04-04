@@ -96,9 +96,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import moment from 'moment'
 
 import { getResourcePages, getResourceCategory } from '@/API/resource'
+import { tableFormateDate } from '@/utils/tools'
+import type { Form } from 'element-ui'
 
 export default Vue.extend({
   name: 'SourceList',
@@ -139,7 +140,7 @@ export default Vue.extend({
     },
     // 筛选查询重置
     resetFilterFn () {
-      this.$refs.resourceFilterForm.resetFields()
+      (this.$refs.resourceFilterForm as Form).resetFields()
       this.resourceFilterForm.current = 1
       this.getResourceList()
     },
@@ -153,11 +154,6 @@ export default Vue.extend({
         this.resourceTableData = data.data.records
         this.totalCount = data.data.total
       }
-    },
-    // 格式化时间
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    formateDate (row, column, cellValue) {
-      return moment().format('YYYY-MM-DD hh:mm:ss')
     },
     // 分页事件
     handleSizeChange (val: number) {
@@ -176,6 +172,11 @@ export default Vue.extend({
     // 资源分类事件
     resourceClassifyFn () {
       console.log('资源分类')
+    },
+    // 时间 format
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    formateDate (row:any, column: any, cellValue: any) {
+      return tableFormateDate(row, column, cellValue)
     }
   }
 })

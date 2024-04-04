@@ -98,15 +98,17 @@ export default Vue.extend({
   methods: {
     // 获取菜单信息
     async loadMenuInfo () {
-      const { data } = await getEditMenuInfo(this.$route.params.id || -1)
+      if (this.$route.params.id) {
+        const { data } = await getEditMenuInfo((this.$route.params.id as number) || -1)
 
-      // 当前菜单信息
-      if (data.data.menuInfo) {
-        this.menuForm = data.data.menuInfo
+        // 当前菜单信息
+        if (data.data.menuInfo) {
+          this.menuForm = data.data.menuInfo
+        }
+
+        // 展示父级节点
+        this.parentMenuList = data.data.parentMenuList
       }
-
-      // 展示父级节点
-      this.parentMenuList = data.data.parentMenuList
     },
     // 添加菜单提交
     async createMenuSubmitFn () {

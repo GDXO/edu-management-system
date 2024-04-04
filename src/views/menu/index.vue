@@ -73,7 +73,8 @@ export default Vue.extend({
       }
     },
     // 菜单编辑
-    handleEdit (menuData) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    handleEdit (menuData: any) {
       this.$router.push({
         name: 'menu-edit',
         params: {
@@ -82,7 +83,8 @@ export default Vue.extend({
       })
     },
     // 菜单删除
-    handleDelete (menuData) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    handleDelete (menuData: any) {
       this.$confirm('该操作会永久删除该菜单, 是否确认删除?', '删除提示', {
         type: 'warning'
       })
