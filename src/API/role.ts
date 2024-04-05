@@ -32,3 +32,23 @@ export const getRoleById = (id: string | number) => request({
   method: 'GET',
   url: `/boss/role/${id}`
 })
+
+// 获取所有角色
+export const getAllRoles = () => request({
+  method: 'GET',
+  url: '/boss/role/all'
+})
+
+// 给用户分配角色
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const allocateUserRoles = (data: any) => request({
+  method: 'POST',
+  url: '/boss/role/allocateUserRoles',
+  data
+})
+
+// 根据用户 ID 查询所拥有的角色
+export const getUserRoles = (userId: string | number) => request({
+  method: 'GET',
+  url: `/boss/role/user/${userId}`
+})

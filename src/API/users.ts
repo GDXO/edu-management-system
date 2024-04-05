@@ -11,14 +11,25 @@ interface LoginUser {
 }
 
 // 登录请求
-export const login = (data: LoginUser) => request({
-  method: 'POST',
-  url: '/front/user/login',
-  data: qs.stringify(data)
-})
+export const login = (data: LoginUser) =>
+  request({
+    method: 'POST',
+    url: '/front/user/login',
+    data: qs.stringify(data)
+  })
 
 // 获取登录用户请求
-export const getUserInfo = () => request({
-  method: 'GET',
-  url: '/front/user/getInfo'
-})
+export const getUserInfo = () =>
+  request({
+    method: 'GET',
+    url: '/front/user/getInfo'
+  })
+
+// 获取用户列表
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getUserPages = (data: any) =>
+  request({
+    method: 'POST',
+    url: '/boss/user/getUserPages',
+    data
+  })

@@ -52,7 +52,7 @@ request.interceptors.response.use(
   response => {
     return response
   },
-  async error => {
+  error => {
     if (error.response) {
       // 请求收到响应了, 但是状态码超出了 2xx 范围
       const { status } = error.response
@@ -88,7 +88,8 @@ request.interceptors.response.use(
               // 重新发送失败的请求
               return request(error.config)
             })
-            .catch(() => {
+            .catch(err => {
+              console.log(err)
               // 失败 => 跳转到登录页
               // 清除当前人员的信息
               store.dispatch('triggerSetUser', null)
