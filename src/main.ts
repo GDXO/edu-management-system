@@ -9,6 +9,7 @@ import './assets/element'
 
 // 添加全局样式
 import './styles/index.scss'
+import '@wangeditor/editor/dist/css/style.css'
 
 Vue.config.productionTip = false
 

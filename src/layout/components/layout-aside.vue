@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    default-active="/role"
+    :default-active="getDefaultActive()"
     class="el-menu-vertical-demo"
     @open="handleOpen"
     @close="handleClose"
@@ -62,6 +62,9 @@ export default Vue.extend({
     },
     handleClose (key: string, keyPath: string): void {
       console.log(key, keyPath)
+    },
+    getDefaultActive () {
+      return `/${this.$route.path.substr(1)}`
     }
   }
 })

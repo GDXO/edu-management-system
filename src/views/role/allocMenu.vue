@@ -96,7 +96,7 @@ export default Vue.extend({
     },
     // 清空组件
     resetChecked () {
-      this.$refs.menuTreeRef.setCheckedKeys([])
+      (this.$refs.menuTreeRef as Tree).setCheckedKeys([])
     },
     // 返回上级菜单
     routerBackFn () {

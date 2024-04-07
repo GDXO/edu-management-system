@@ -30,7 +30,12 @@
         </el-form-item>
       </el-form>
     </div>
-    <el-table :data="users" stripe style="width: 100%">
+    <el-table
+      stripe
+      :data="users"
+      v-loading="loadingSwitch"
+      style="width: 100%"
+    >
       <el-table-column prop="id" label="用户ID"></el-table-column>
       <el-table-column label="头像">
         <template slot-scope="scope">
@@ -70,13 +75,14 @@
       </el-table-column>
     </el-table>
     <el-pagination
+      :page-size="8"
+      :disabled="loadingSwitch"
+      :total="totalCount"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page.sync="userFilterForm.currentPage"
       :page-sizes="[8, 15, 30, 50, 100]"
-      :page-size="8"
+      :current-page.sync="userFilterForm.currentPage"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="totalCount"
     >
     </el-pagination>
 
@@ -135,7 +141,8 @@ export default Vue.extend({
       dialogVisible: false,
       roles: [],
       roleIdList: [],
-      currentRow: null
+      currentRow: null,
+      loadingSwitch: false
     }
   },
   created () {
@@ -151,8 +158,10 @@ export default Vue.extend({
     },
     // 获取用户列表
     async loadUsers () {
+      this.loadingSwitch = true
       const { data } = await getUserPages(this.userFilterForm)
 
+      this.loadingSwitch = false
       if (data.code === '000000') {
         this.users = data.data.records
 
@@ -201,14 +210,16 @@ export default Vue.extend({
     },
     // 分配角色点击事件
     async handleAllocRole () {
-      const { data } = await allocateUserRoles({
-        userId: this.currentRow.id,
-        roleIdList: this.roleIdList
-      })
+      if (this.currentRow) {
+        const { data } = await allocateUserRoles({
+          userId: this.currentRow.id,
+          roleIdList: this.roleIdList
+        })
 
-      if (data.code === '000000') {
-        this.$message.success('分配角色成功!')
-        this.dialogVisible = false
+        if (data.code === '000000') {
+          this.$message.success('分配角色成功!')
+          this.dialogVisible = false
+        }
       }
     },
     // 时间格式化
