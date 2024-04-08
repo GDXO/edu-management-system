@@ -1,12 +1,7 @@
 <template>
   <div class="header">
     <!-- 面包屑 -->
-    <el-breadcrumb separator="/">
-      <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-      <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-      <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-    </el-breadcrumb>
+    <breadcrumb />
     <!-- 登录用户 -->
     <el-dropdown trigger="click">
       <span class="el-dropdown-link">
@@ -33,8 +28,13 @@ import { mapActions } from 'vuex'
 import { getUserInfo } from '@/API/users'
 import defaultAvatar from '@/assets/images/defaultAvatar.png'
 
+import Breadcrumb from '@/components/breadcrumb/index.vue'
+
 export default Vue.extend({
   name: 'LayoutHeader',
+  components: {
+    Breadcrumb
+  },
   data () {
     return {
       userInfo: {},

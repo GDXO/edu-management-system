@@ -198,7 +198,8 @@ export default Vue.extend({
       })
     },
     // 内容管理函数
-    contentManageFn (row) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    contentManageFn (row: any) {
       this.$router.push({
         name: 'course-section',
         params: {

@@ -180,7 +180,8 @@ export default Vue.extend({
 
       const videoFile = this.video.files[0]
       const imageFile = this.image.files[0]
-      const uploader = this.uploader
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const uploader: any = this.uploader
 
       // 将文件添加到上传列表
       uploader.addFile(imageFile, null, null, null, '{"Vod":{}}')

@@ -99,7 +99,7 @@ export default Vue.extend({
     // 获取菜单信息
     async loadMenuInfo () {
       if (this.$route.params.id) {
-        const { data } = await getEditMenuInfo(this.$route.params.id || -1)
+        const { data } = await getEditMenuInfo((this.$route.params.id as number) || -1)
 
         // 当前菜单信息
         if (data.data.menuInfo) {

@@ -89,7 +89,7 @@ export default Vue.extend({
       menus.forEach((menu: any) => {
         if (menu.selected) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          this.menuCheckedKeys = [...this.menuCheckedKeys, (menu.id as any)]
+          this.menuCheckedKeys = [...this.menuCheckedKeys, (menu.id as never)]
         }
 
         if (menu.subMenuList && menu.subMenuList.length) {

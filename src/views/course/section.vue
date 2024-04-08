@@ -301,7 +301,7 @@ export default Vue.extend({
       this.$router.push({
         name: 'course-video',
         params: {
-          courseId: this.courseId
+          courseId: (this.courseId as string)
         },
         query: {
           lessonInfo: encodeURIComponent(queryObj)
