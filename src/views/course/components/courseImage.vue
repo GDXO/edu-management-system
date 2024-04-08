@@ -39,7 +39,8 @@ export default Vue.extend({
     }
   },
   methods: {
-    beforeCourseCoverUpload (file) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    beforeCourseCoverUpload (file: any) {
       const isJPG = file.type === 'image/jpeg'
       const isLt2M = file.size / 1024 / 1024 < 2
 
@@ -52,7 +53,8 @@ export default Vue.extend({
       return isJPG && isLt2M
     },
     // 上传课程封面
-    async uploadCourseCoverFn (options) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async uploadCourseCoverFn (options: any) {
       // 显示进度条
       this.isUploading = true
 
@@ -61,7 +63,9 @@ export default Vue.extend({
 
       // 上传图片
       const { data } = await uploadCourseImg(fd, evt => {
-        this.percentage = Math.floor((evt.loaded * 100) / evt.total)
+        if (evt.total) {
+          this.percentage = Math.floor((evt.loaded * 100) / evt.total)
+        }
       })
       if (data.code === '000000') {
         // 关闭进度条

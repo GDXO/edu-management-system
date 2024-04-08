@@ -150,7 +150,8 @@ export default Vue.extend({
   },
   methods: {
     // 时间筛选确定时间
-    registrationDataChange (selectedDate) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    registrationDataChange (selectedDate: any) {
       if (selectedDate.length) {
         this.userFilterForm.startCreateTime = selectedDate[0]
         this.userFilterForm.endCreateTime = selectedDate[1]
@@ -170,21 +171,24 @@ export default Vue.extend({
       }
     },
     // 分页操作
-    handleSizeChange (val) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    handleSizeChange (val: any) {
       this.userFilterForm.pageSize = val
       this.userFilterForm.currentPage = 1
 
       // 重新获取数据
       this.loadUsers()
     },
-    handleCurrentChange (val) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    handleCurrentChange (val: any) {
       this.userFilterForm.currentPage = val
 
       // 重新获取数据
       this.loadUsers()
     },
     // 分配角色点击事件
-    async userAssignRolesFn (row) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async userAssignRolesFn (row: any) {
       // 当前行数据
       this.currentRow = row
 
@@ -192,10 +196,12 @@ export default Vue.extend({
       this.loadRoles()
 
       // 获取用户拥有的角色
-      const { data } = await getUserRoles(this.currentRow.id)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data } = await getUserRoles((this.currentRow as any).id)
 
       if (data.code === '000000') {
-        this.roleIdList = data.data.map(item => item.id)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        this.roleIdList = data.data.map((item: any) => item.id)
       }
 
       this.dialogVisible = true
@@ -212,7 +218,8 @@ export default Vue.extend({
     async handleAllocRole () {
       if (this.currentRow) {
         const { data } = await allocateUserRoles({
-          userId: this.currentRow.id,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          userId: (this.currentRow as any).id,
           roleIdList: this.roleIdList
         })
 

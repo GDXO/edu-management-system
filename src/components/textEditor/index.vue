@@ -20,8 +20,6 @@
 </template>
 
 <script lang="ts">
-import type { InsertFnType } from '@wangeditor/editor-for-vue'
-
 import Vue from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 
@@ -44,7 +42,8 @@ export default Vue.extend({
         placeholder: '请输入内容...',
         MENU_CONF: {
           uploadImage: {
-            async customUpload (file: File, insertFn: InsertFnType) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            async customUpload (file: File, insertFn: any) {
               const fd = new FormData()
               fd.append('file', file)
 
@@ -68,17 +67,20 @@ export default Vue.extend({
     }, 1500)
   },
   methods: {
-    onCreated (editor) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onCreated (editor: any) {
       this.editor = Object.seal(editor) // 一定要用 Object.seal() ，否则会报错
     },
-    onChange (editor) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onChange (editor: any) {
       this.$emit('input', editor.getHtml())
     }
   },
   beforeDestroy () {
     const editor = this.editor
     if (editor == null) return
-    editor.destroy() // 组件销毁时，及时销毁编辑器
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (editor as any).destroy() // 组件销毁时，及时销毁编辑器
   }
 })
 </script>

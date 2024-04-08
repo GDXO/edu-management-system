@@ -172,7 +172,7 @@ import Vue from 'vue'
 import moment from 'moment'
 
 import CourseImage from './courseImage.vue'
-import TextEditor from '@/components/textEditor/'
+import TextEditor from '@/components/textEditor/index.vue'
 import { saveOrUpdateCourse, getCourseById } from '@/API/course'
 
 export default Vue.extend({

@@ -52,3 +52,32 @@ export const getCourseById = (courseId: string | number) => request({
     courseId
   }
 })
+
+// 获取课程章节信息
+export const getSectionAndLesson = (courseId: string | number) => request({
+  method: 'GET',
+  url: '/boss/course/section/getSectionAndLesson',
+  params: {
+    courseId
+  }
+})
+
+// 保存或更新阶段内容
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const saveOrUpdateSection = (data: any) => {
+  return request({
+    method: 'POST',
+    url: '/boss/course/section/saveOrUpdateSection',
+    data
+  })
+}
+
+// 保存或更新章节内容
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const saveOrUpdateLesson = (data: any) => {
+  return request({
+    method: 'POST',
+    url: '/boss/course/lesson/saveOrUpdate',
+    data
+  })
+}

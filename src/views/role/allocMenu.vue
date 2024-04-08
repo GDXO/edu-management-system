@@ -83,10 +83,13 @@ export default Vue.extend({
       }
     },
     // 获取选中的数据节点
-    getCheckMenusKey (menus) {
-      menus.forEach(menu => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    getCheckMenusKey (menus: any) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      menus.forEach((menu: any) => {
         if (menu.selected) {
-          this.menuCheckedKeys = [...this.menuCheckedKeys, menu.id]
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          this.menuCheckedKeys = [...this.menuCheckedKeys, (menu.id as any)]
         }
 
         if (menu.subMenuList && menu.subMenuList.length) {

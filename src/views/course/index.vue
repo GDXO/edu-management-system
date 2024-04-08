@@ -76,7 +76,10 @@
               size="mini"
               @click="editCourseFn(scope.row)"
             >编辑</el-button>
-            <el-button size="mini">内容管理</el-button>
+            <el-button
+              size="mini"
+              @click="contentManageFn(scope.row)"
+            >内容管理</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -126,7 +129,8 @@ export default Vue.extend({
 
       if (data.code === '000000') {
         // 给每条数据添加商家的 loading
-        data.data.records.forEach(course => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data.data.records.forEach((course: any) => {
           course.statusIsLoading = false
         })
 
@@ -136,8 +140,11 @@ export default Vue.extend({
       }
     },
     // 重置
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
+    resetForm (formName: string) {
+      if (formName) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (this.$refs[formName] as any).resetFields()
+      }
     },
     // 查询
     searchCourseFn () {
@@ -145,21 +152,24 @@ export default Vue.extend({
       this.loadCourses()
     },
     // 分页操作
-    handleSizeChange (val) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    handleSizeChange (val: any) {
       this.courseFilterForm.pageSize = val
       this.courseFilterForm.currentPage = 1
 
       // 重新获取数据
       this.loadCourses()
     },
-    handleCurrentChange (val) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    handleCurrentChange (val: any) {
       this.courseFilterForm.currentPage = val
 
       // 重新请求数据
       this.loadCourses()
     },
     // 课程上下架函数
-    async changeStatusFn (course) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async changeStatusFn (course: any) {
       course.statusIsLoading = true
       const { data } = await changeStatus({
         courseId: course.id,
@@ -178,9 +188,19 @@ export default Vue.extend({
       })
     },
     // 编辑课程操作
-    editCourseFn (row) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    editCourseFn (row: any) {
       this.$router.push({
         name: 'course-edit',
+        params: {
+          courseId: row.id
+        }
+      })
+    },
+    // 内容管理函数
+    contentManageFn (row) {
+      this.$router.push({
+        name: 'course-section',
         params: {
           courseId: row.id
         }
